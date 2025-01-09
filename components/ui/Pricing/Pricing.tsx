@@ -179,7 +179,7 @@ export default function Pricing({ user, products, subscription }: Props) {
           })}
         </div>
 
-        {/* Stripe Pricing Table */}
+
         <div className="mt-12">
           <stripe-pricing-table
             pricing-table-id="prctbl_1QecHyBiDW7kGn9FPxuXnYSG"
