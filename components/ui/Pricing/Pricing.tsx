@@ -2,13 +2,11 @@
 
 import { useEffect } from 'react';
 import Button from '@/components/ui/Button';
-import LogoCloud from '@/components/ui/LogoCloud';
 import type { Tables } from '@/types_db';
 import { getStripe } from '@/utils/stripe/client';
 import { checkoutWithStripe } from '@/utils/stripe/server';
 import { getErrorRedirect } from '@/utils/helpers';
 import { User } from '@supabase/supabase-js';
-import cn from 'classnames';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -95,14 +93,14 @@ export default function Pricing({ user, products, subscription }: Props) {
   }, []);
 
   return (
-    <section className="bg-black">
+    <section className="bg-white text-black">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
         {/* Existing Pricing Plans */}
         <div className="sm:flex sm:flex-col sm:align-center">
-          <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+          <h1 className="text-4xl font-extrabold  sm:text-center sm:text-6xl">
             Pricing Plans
           </h1>
-          <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+          <p className="max-w-2xl m-auto mt-5 text-xl  sm:text-center sm:text-2xl">
             Start building for free, then add a site plan to go live. Account
             plans unlock additional features.
           </p>
@@ -183,16 +181,12 @@ export default function Pricing({ user, products, subscription }: Props) {
 
         {/* Stripe Pricing Table */}
         <div className="mt-12">
-          <h2 className="text-2xl font-semibold text-white text-center">
-            Stripe Pricing Table
-          </h2>
           <stripe-pricing-table
             pricing-table-id="prctbl_1QecHyBiDW7kGn9FPxuXnYSG"
             publishable-key="pk_test_51QeWvBBiDW7kGn9FXnrQsuQ46773FDQ6AieGbM0Fz7nuI7HrQRTsNteEyzdrrBxnUrO3pfTrznzWBRKZIFXW4sNk008Z2gsRuJ"
           ></stripe-pricing-table>
         </div>
       </div>
-      <LogoCloud />
     </section>
   );
 }
