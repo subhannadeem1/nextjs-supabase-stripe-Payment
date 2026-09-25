@@ -186,7 +186,7 @@ export function ProjectDetail({ data, settings }: { data: Data; settings: Settin
         />
       </div>
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid min-w-0 grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="grid min-w-0 gap-5">
           <TimelineCard project={project} payments={payments} onPay={(period) => openPay({ period, amount: project.monthlyAmount })} />
           <ScopeCard projectId={project._id} scope={project.scope} />

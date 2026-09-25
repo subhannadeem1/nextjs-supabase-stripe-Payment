@@ -21,7 +21,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
           email={session.email}
           counts={counts}
         />
-        <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-6 sm:px-6 lg:py-8">{children}</main>
+        <main className="mx-auto w-full max-w-[1400px] min-w-0 flex-1 px-4 py-6 sm:px-6 lg:py-8">{children}</main>
       </div>
     </QuickActionsProvider>
   );

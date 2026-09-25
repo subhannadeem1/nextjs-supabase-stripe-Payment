@@ -5,6 +5,7 @@ import { ExternalLink, History, Loader2, MoreHorizontal, Pencil, Plus, Trash2 } 
 
 import { deleteActivity, setActivityOutcome, updateActivity } from "@/actions/activities";
 import { OutcomeBadge } from "@/components/badges";
+import { ClampText } from "@/components/clamp-text";
 import { ConfirmDialog } from "@/components/confirm";
 import { Field, SelectField } from "@/components/form";
 import { ChannelIcon, CHANNEL_TINT } from "@/components/icons";
@@ -208,7 +209,7 @@ export function TimelineCard({
                         </DropdownMenu>
                       ) : null}
                     </div>
-                    {a.summary ? <p className="mt-0.5 text-sm whitespace-pre-line text-foreground/85">{a.summary}</p> : null}
+                    {a.summary ? <ClampText text={a.summary} className="mt-0.5 text-sm text-foreground/85" /> : null}
                     {a.link ? (
                       <a
                         href={toUrl(a.link)}

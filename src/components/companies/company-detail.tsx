@@ -132,7 +132,7 @@ export function CompanyDetail({ data, settings }: { data: CompanyDetailData; set
         onInvoice={() => quick.open("invoice", { companyId: company._id })}
       />
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid min-w-0 grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="grid min-w-0 gap-5">
           <ConfiguratorCard company={company} onEdit={() => setCfgOpen(true)} />
           <PeopleCard

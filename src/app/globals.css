@@ -163,6 +163,11 @@
   ::selection {
     background: color-mix(in srgb, var(--brand-from) 28%, transparent);
   }
+  /* Single-column grids shrink with their container instead of being
+     stretched by long no-wrap text. Any grid-cols-* utility still wins. */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* ------------------------------------------------------------------ */

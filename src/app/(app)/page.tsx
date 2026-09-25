@@ -88,7 +88,7 @@ export default async function TodayPage() {
         />
       </div>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
+      <div className="grid min-w-0 grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         <div className="grid min-w-0 gap-6">
           <Card>
             <CardHeader>
