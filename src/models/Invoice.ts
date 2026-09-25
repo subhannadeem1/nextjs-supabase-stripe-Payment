@@ -6,6 +6,7 @@ const InvoiceItemSchema = new Schema({
   description: { type: String, default: "" },
   quantity: { type: Number, default: 1 },
   unitPrice: { type: Number, default: 0 },
+  milestoneId: { type: Schema.Types.ObjectId, default: null },
 });
 
 const InvoiceSchema = new Schema(

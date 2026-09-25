@@ -8,6 +8,7 @@ import { mutate, UserError } from "@/lib/action";
 import { CURRENCIES, INVOICE_STATUS_VALUES, type InvoiceStatus } from "@/lib/constants";
 import { fromInputDate } from "@/lib/dates";
 import { invoiceTotals } from "@/lib/finance";
+import { round2 } from "@/lib/money";
 import { Company } from "@/models/Company";
 import { Invoice } from "@/models/Invoice";
 import { Payment } from "@/models/Payment";
@@ -87,6 +88,7 @@ const InvoiceInput = z.object({
         description: z.string().trim().max(500).default(""),
         quantity: z.coerce.number().min(0).max(1e6).default(1),
         unitPrice: z.coerce.number().min(-1e10).max(1e10).default(0),
+        milestoneId: optionalId,
       }),
     )
     .max(100),
@@ -139,17 +141,32 @@ export async function markInvoicePaid(id: string, raw: { date: string; method?: 
     const { total } = invoiceTotals(inv);
     if (total <= 0) throw new UserError("Invoice total is 0 — add items first");
     const date = fromInputDate(raw.date) ?? new Date();
-    await Payment.create({
+    const base = {
       companyId: inv.companyId,
       projectId: inv.projectId,
       invoiceId: inv._id,
-      amount: total,
       currency: inv.currency,
       date,
       method: (raw.method ?? "").slice(0, 60),
       reference: (raw.reference || inv.number).slice(0, 200),
       note: `Invoice ${inv.number}`,
-    });
+    };
+    // Lines added from milestones pay those milestones; each gets its share of tax/discount.
+    const { subtotal } = invoiceTotals(inv);
+    const byMilestone = new Map<string, number>();
+    for (const it of inv.items) {
+      if (!it.milestoneId || subtotal <= 0) continue;
+      const share = round2(((it.quantity * it.unitPrice) / subtotal) * total);
+      byMilestone.set(String(it.milestoneId), (byMilestone.get(String(it.milestoneId)) ?? 0) + share);
+    }
+    const linked = [...byMilestone.values()].reduce((a, b) => a + b, 0);
+    const docs: (typeof base & { milestoneId: string | null; amount: number })[] = [...byMilestone.entries()].map(
+      ([milestoneId, amount]) => ({ ...base, milestoneId, amount }),
+    );
+    const rest = round2(total - linked);
+    if (docs.length === 0) docs.push({ ...base, milestoneId: null, amount: total });
+    else if (rest > 0.009) docs.push({ ...base, milestoneId: null, amount: rest });
+    await Payment.insertMany(docs);
     inv.status = "paid";
     inv.paidAt = date;
     if (!inv.sentAt) inv.sentAt = date;

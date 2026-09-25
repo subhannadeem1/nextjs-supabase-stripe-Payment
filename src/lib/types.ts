@@ -203,6 +203,7 @@ export interface InvoiceItemDTO {
   description: string;
   quantity: number;
   unitPrice: number;
+  milestoneId?: string | null;
 }
 
 export interface InvoiceDTO {
@@ -221,6 +222,7 @@ export interface InvoiceDTO {
   paidAt: string | null;
   sentAt: string | null;
   createdAt: string;
+  updatedAt: string;
   company?: CompanyDTO | { _id: string; name: string; country?: string } | null;
   project?: { _id: string; title: string } | null;
 }

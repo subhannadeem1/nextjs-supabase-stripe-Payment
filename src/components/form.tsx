@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { cloneElement, isValidElement, useId, useState, type ReactElement } from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -39,10 +39,19 @@ export function Field({
   children: React.ReactNode;
   className?: string;
 }) {
+  // Link the label to its control automatically (a11y + click-to-focus).
+  const autoId = useId();
+  let id = htmlFor;
+  let control = children;
+  if (!id && isValidElement(children)) {
+    const existing = (children.props as { id?: string }).id;
+    id = existing ?? autoId;
+    if (!existing) control = cloneElement(children as ReactElement<{ id?: string }>, { id });
+  }
   return (
     <div className={cn("grid gap-1.5", className)}>
-      <Label htmlFor={htmlFor}>{label}</Label>
-      {children}
+      <Label htmlFor={id}>{label}</Label>
+      {control}
       {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
     </div>
   );
@@ -94,13 +103,15 @@ export function ChipsSelect({
   options,
   value,
   onChange,
+  id,
 }: {
   options: readonly string[];
   value: string[];
   onChange: (v: string[]) => void;
+  id?: string;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div id={id} role="group" className="flex flex-wrap gap-1.5">
       {options.map((o) => {
         const on = value.includes(o);
         return (
@@ -125,10 +136,16 @@ export function ChipsSelect({
 }
 
 /** Free-text tags: type and press Enter. */
-export function TagsInput({ value, onChange, placeholder = "Add tag and press Enter" }: {
+export function TagsInput({
+  value,
+  onChange,
+  placeholder = "Add tag and press Enter",
+  id,
+}: {
   value: string[];
   onChange: (v: string[]) => void;
   placeholder?: string;
+  id?: string;
 }) {
   const [text, setText] = useState("");
   const add = () => {
@@ -147,6 +164,7 @@ export function TagsInput({ value, onChange, placeholder = "Add tag and press En
         </span>
       ))}
       <input
+        id={id}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
