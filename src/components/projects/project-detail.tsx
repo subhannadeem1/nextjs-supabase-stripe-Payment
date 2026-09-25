@@ -249,30 +249,44 @@ function TimelineCard({
   payments: PaymentDTO[];
   onPay: (period: string) => void;
 }) {
-  if (project.billing === "monthly") {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <CalendarRange className="size-4 text-primary" /> Monthly payments
-          </CardTitle>
-          <span className="text-xs text-muted-foreground">
-            Since {fmtDate(project.startDate ?? project.createdAt, "MMM yyyy")}
-            {project.endDate ? ` · ends ${fmtDate(project.endDate, "MMM yyyy")}` : ""}
-          </span>
-        </CardHeader>
-        <CardContent>
-          <MonthGrid project={project} payments={payments} onPay={onPay} />
-        </CardContent>
-      </Card>
-    );
-  }
+  if (project.billing === "monthly") return <MonthlyCard project={project} payments={payments} onPay={onPay} />;
+  return <DeadlineCard project={project} />;
+}
+
+function MonthlyCard({
+  project,
+  payments,
+  onPay,
+}: {
+  project: ProjectDTO;
+  payments: PaymentDTO[];
+  onPay: (period: string) => void;
+}) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <CalendarRange className="size-4 text-primary" /> Monthly payments
+        </CardTitle>
+        <span className="text-xs text-muted-foreground">
+          Since {fmtDate(project.startDate ?? project.createdAt, "MMM yyyy")}
+          {project.endDate ? ` · ends ${fmtDate(project.endDate, "MMM yyyy")}` : ""}
+        </span>
+      </CardHeader>
+      <CardContent>
+        <MonthGrid project={project} payments={payments} onPay={onPay} />
+      </CardContent>
+    </Card>
+  );
+}
+
+function DeadlineCard({ project }: { project: ProjectDTO }) {
+  const [now] = useState(() => Date.now());
   const start = toDate(project.startDate ?? project.createdAt);
   const end = toDate(project.dueDate);
-  if (!start || !end || end <= start) {
+  if (project.billing === "monthly" || !start || !end || end <= start) {
     return null;
   }
-  const now = Date.now();
   const total = end.getTime() - start.getTime();
   const pct = Math.max(0, Math.min(100, ((now - start.getTime()) / total) * 100));
   const left = daysFromToday(end);
