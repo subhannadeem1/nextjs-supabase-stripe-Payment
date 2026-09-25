@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Theme tokens — brand gradient is violet → sky (see .bg-brand)      */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --radius: 0.75rem;
+
+  --brand-from: #6c63f5;
+  --brand-via: #5b8ff2;
+  --brand-to: #4fc3f7;
+
+  --background: #f6f7fb;
+  --foreground: #0f1222;
+  --card: #ffffff;
+  --card-foreground: #0f1222;
+  --popover: #ffffff;
+  --popover-foreground: #0f1222;
+  --primary: #6259f0;
+  --primary-foreground: #ffffff;
+  --secondary: #eef0f7;
+  --secondary-foreground: #1c2038;
+  --muted: #f1f2f8;
+  --muted-foreground: #5f6582;
+  --accent: #eeedfd;
+  --accent-foreground: #3d35c4;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --success: #12a150;
+  --warning: #d97706;
+  --border: #e3e5ef;
+  --input: #dfe2ee;
+  --ring: #6c63f5;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2a2f4a;
+  --sidebar-border: #e8eaf3;
+  --sidebar-accent: #f1f0fe;
+  --sidebar-accent-foreground: #3d35c4;
+
+  --chart-1: #6c63f5;
+  --chart-2: #38bdf8;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #f43f5e;
+  --chart-6: #a855f7;
+}
+
+.dark {
+  --background: #0a0c17;
+  --foreground: #e7e9f6;
+  --card: #111426;
+  --card-foreground: #e7e9f6;
+  --popover: #13172c;
+  --popover-foreground: #e7e9f6;
+  --primary: #7d75ff;
+  --primary-foreground: #ffffff;
+  --secondary: #1a1e36;
+  --secondary-foreground: #e1e4f5;
+  --muted: #161a30;
+  --muted-foreground: #9197b8;
+  --accent: #1e2145;
+  --accent-foreground: #c8c4ff;
+  --destructive: #f2555a;
+  --destructive-foreground: #ffffff;
+  --success: #3ccf7e;
+  --warning: #f5a524;
+  --border: #22263f;
+  --input: #2a2f4d;
+  --ring: #7d75ff;
+
+  --sidebar: #0d1020;
+  --sidebar-foreground: #c9cde6;
+  --sidebar-border: #1d2138;
+  --sidebar-accent: #1b1e3d;
+  --sidebar-accent-foreground: #d9d6ff;
+
+  --chart-1: #8b84ff;
+  --chart-2: #4fc3f7;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #fb7185;
+  --chart-6: #c084fc;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--brand-from) 28%, transparent);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Brand helpers                                                      */
+/* ------------------------------------------------------------------ */
+
+@utility bg-brand {
+  background-image: linear-gradient(
+    120deg,
+    var(--brand-from) 0%,
+    var(--brand-via) 55%,
+    var(--brand-to) 100%
+  );
+}
+
+@utility bg-brand-soft {
+  background-image: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--brand-from) 14%, transparent) 0%,
+    color-mix(in srgb, var(--brand-to) 12%, transparent) 100%
+  );
+}
+
+@utility text-brand {
+  background-image: linear-gradient(
+    120deg,
+    var(--brand-from) 0%,
+    var(--brand-via) 50%,
+    var(--brand-to) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility shadow-brand {
+  box-shadow: 0 10px 28px -12px color-mix(in srgb, var(--brand-from) 70%, transparent);
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Native date inputs pick up the theme */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
