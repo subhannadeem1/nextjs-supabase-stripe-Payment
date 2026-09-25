@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/page-header";
 import { StatCard } from "@/components/stat-card";
 import { getMarketingStats } from "@/data/stats";
 import { CHANNEL_GROUP_LABEL } from "@/lib/constants";
+import { pluralize } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Insights" };
 
@@ -22,12 +23,12 @@ export default async function StatsPage() {
       <div className="grid gap-6">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard label="Companies found" value={s.kpis.found} icon={Building2} hint={`${pct(s.kpis.contacted, s.kpis.found)} contacted`} />
-          <StatCard label="Messages sent" value={s.kpis.messages} icon={Send} hint={`to ${s.kpis.contacted} companies`} />
+          <StatCard label="Messages sent" value={s.kpis.messages} icon={Send} hint={`to ${pluralize(s.kpis.contacted, "company", "companies")}`} />
           <StatCard
             label="Reply rate"
             value={s.kpis.replyRate === null ? "—" : `${s.kpis.replyRate}%`}
             icon={Inbox}
-            hint={`${s.kpis.replied} companies replied`}
+            hint={`${pluralize(s.kpis.replied, "company", "companies")} replied`}
           />
           <StatCard label="Won" value={s.kpis.won} icon={Trophy} tone="brand" hint={`${pct(s.kpis.won, s.kpis.contacted)} of contacted`} />
         </div>
@@ -69,7 +70,7 @@ export default async function StatsPage() {
           >
             <HBars
               empty="Log some outreach to see which channel works best."
-              format={(v) => `${v}%`}
+              suffix="%"
               rows={s.byChannel.map((c) => ({
                 key: c.group,
                 label: channelLabel(c.group),
@@ -101,7 +102,7 @@ export default async function StatsPage() {
           >
             <HBars
               empty="Use “Use template → Log as sent” on a company page to track this."
-              format={(v) => `${v}%`}
+              suffix="%"
               rows={s.templateStats.map((t) => ({
                 key: t.id,
                 label: t.title,

@@ -80,12 +80,13 @@ export function Legend({ items }: { items: { label: string; color: string }[] })
  */
 export function HBars({
   rows,
-  format = (v) => String(v),
+  suffix = "",
   color = "var(--series-solo)",
   empty = "No data yet.",
 }: {
   rows: { label: React.ReactNode; value: number; detail?: string; key: string }[];
-  format?: (v: number) => string;
+  /** Appended to each value label, e.g. "%". (Plain string so server pages can pass it.) */
+  suffix?: string;
   color?: string;
   empty?: string;
 }) {
@@ -104,7 +105,8 @@ export function HBars({
                   style={{ width: `${Math.max(r.value > 0 ? 2 : 0, (r.value / max) * 100)}%`, background: color }}
                 />
               </span>
-              <span className="min-w-10 text-right text-xs font-medium tabular-nums">{format(r.value)}</span>
+              <span className="min-w-10 text-right text-xs font-medium tabular-nums">{r.value}
+                {suffix}</span>
             </div>
           </TooltipTrigger>
           {r.detail ? <TooltipContent side="top">{r.detail}</TooltipContent> : null}

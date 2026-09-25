@@ -6,10 +6,12 @@ import { z } from "zod";
 import { mutate, UserError } from "@/lib/action";
 import {
   ACTIVITY_KINDS,
+  CHANNEL_GROUP,
   CHANNEL_VALUES,
   COMPANY_STATUS_LABEL,
   OUTCOME_VALUES,
   type ActivityKind,
+  type Channel,
   type CompanyStatus,
   type Outcome,
 } from "@/lib/constants";
@@ -104,6 +106,23 @@ export async function logActivity(raw: LogInputT) {
         { _id: input.companyId },
         { $set: { followUpAt: f, followUpNote: f ? (input.followUpNote ?? "") : "" } },
       );
+    }
+
+    // A reply answers your last unanswered message to that person.
+    if (input.kind === "reply") {
+      const open = await Activity.find({
+        companyId: input.companyId,
+        contactId: input.contactId,
+        direction: "out",
+        outcome: { $in: ["pending", "seen", ""] },
+        date: { $lte: date },
+      })
+        .sort({ date: -1, createdAt: -1 })
+        .limit(10)
+        .lean();
+      const group = input.channel ? CHANNEL_GROUP[input.channel as Channel] : null;
+      const target = open.find((a) => group && a.channel && CHANNEL_GROUP[a.channel as Channel] === group) ?? open[0];
+      if (target) await Activity.updateOne({ _id: target._id }, { $set: { outcome: input.outcome || "replied" } });
     }
 
     await refreshLastContacted(input.companyId);
