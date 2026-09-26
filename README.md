@@ -33,6 +33,129 @@ Search everything with **Ctrl K** (⌘K on Mac). Add anything from the **+ New**
 
 ---
 
+## Istemal ka tareeqa (How to use)
+
+### 1. Pehli dafa — Settings
+Login ke baad left side neeche **Settings** kholein:
+
+- **Your business:** business ka naam, apna naam, email, phone. Ye invoices aur templates me khud aate hain.
+- **Defaults:** apni currency (EUR, USD, PKR…) aur follow-up kitne din baad yaad dilaye.
+- **Invoices:** number ka prefix (jaise `INV-`) aur bank / Wise / PayPal ki details.
+- **Save settings** dabayein. Dark / light mode yahin se, ya upar ☀️ icon se.
+
+### 2. Nayi company add karna — Client hunting
+1. **Client hunting** → **Add company**.
+2. Naam ya website likhte hi app check karti hai. Company pehle se ho to wahi dikha deti hai; wahi website dobara add nahi hoti.
+3. Country, type, priority (A/B/C) aur opportunity (3D Configurator, OMS…) bhar kar save karein.
+
+List me upar ke tabs se filter karein: **Priority A**, **Ready to contact**, **Contacted**, **In talks**,
+**Follow-up due**, **Clients**, **Lost / not a fit**. A–Z harf dabane se us harf ki companies aati hain.
+Daayein wala icon board (kanban) view kholta hai.
+
+### 3. Company ka page
+- **Research:** checklist tick karein. Sab tick ho jaye to status khud **Ready to contact** ho jata hai.
+- **Configurator analysis:** configurator hai ya nahi, aur us me kya kami hai — yahi aap ki pitch hai.
+- **People → Add person:** banda, role, LinkedIn, email, phone. Decision-maker par nishan lagayein.
+- **Notes:** khud save hote hain.
+- **Next follow-up:** kab dobara rabta karna hai.
+
+### 4. Outreach log karna (sab se zaroori)
+Jab bhi kisi ko message karein, company page par **Log outreach**:
+
+- **Channel:** LinkedIn connect / message, Email, WhatsApp, Call, Website form, Meeting.
+- **Type:** Intro, Proposal, Demo, Follow-up, Reply, Meeting, Note.
+- **Result:** No reply yet, Seen, Replied, Interested, Meeting booked, Not interested, Bounced.
+- **Next follow-up:** 3 din, 1 hafta, 2 hafte…
+
+Status khud aage badhta hai: Contacted → Replied → Interested → Proposal. **Won**, **Lost** aur **Not a fit**
+aap khud lagate hain. Unhi bande ko usi channel par dobara message karein to app bata deti hai ke pehle bhi kar
+chuke hain.
+
+### 5. Roz ka kaam — Today aur Follow-ups
+- **Today:** aaj ke follow-ups, "going cold" companies (message gaya, jawab nahi, follow-up set nahi), aaj ke
+  tasks, aane wale paise aur pipeline.
+- **Follow-ups:** har row par ✓ = kaam ho gaya, ⏰ = **Snooze** (baad me yaad dilao).
+
+### 6. Message templates
+**Message templates → Add starter templates** se 5 tayyar messages aate hain:
+
+| Template | Kahan | Kab |
+| --- | --- | --- |
+| LinkedIn connection note | LinkedIn connect | Pehli connection request ke saath |
+| LinkedIn proposal | LinkedIn message | Connect hone ke baad pitch |
+| Email proposal | Email (subject ke saath) | Email se pitch |
+| Friendly follow-up | LinkedIn message | Jawab na aaye to |
+| Demo share | Email | Demo ka link bhejna |
+
+Template me ye jaghein khud bharti hain:
+
+| Jagah | Kya aata hai |
+| --- | --- |
+| `{{firstName}}`, `{{fullName}}`, `{{role}}` | Jis bande ko bhej rahe hain |
+| `{{company}}`, `{{country}}`, `{{website}}` | Company ki details |
+| `{{weakness}}` | Company page → Configurator analysis me likhi kami |
+| `{{opportunity}}` | Jo aap bana kar de sakte hain (3D Configurator, OMS…) |
+| `{{myName}}`, `{{myBusiness}}` | Settings me aap ka naam aur business |
+
+Koi cheez company me bhari na ho to `{{...}}` hi dikhta hai aur neeche "Missing" likha aata hai, taake bhejne se
+pehle bhar lein.
+
+**Istemal:** company page → **Use template** → banda aur template chunein → **Copy** (ya **Open in email app** /
+**Open LinkedIn**) → bhej dein → **Log as sent**. Outreach history me khud likha jata hai ke kaunsa template gaya,
+aur **Insights** me dikhta hai ke kis template par zyada jawab aate hain.
+
+Templates ko **Edit** karke apne alfaaz me likhein, **Duplicate** se ek jaisa naya banayein (masalan German
+companies ke liye), ya **New template** se bilkul naya.
+
+### 7. Demo library aur Insights
+- **Demo library → Add demo:** apne demo links rakhein. Har demo ke saath dikhta hai ke kis company ko bheja.
+  Outreach log karte waqt Type "Demo" chunein aur demo select karein.
+- **Insights:** har hafte kitni outreach hui (channel ke hisaab se), pipeline, kis channel aur template par zyada
+  jawab aate hain, top countries.
+
+### 8. Notion ka data laana — Import CSV
+1. Notion me **Export → CSV**.
+2. App me **Import CSV** → file daalein ya text paste karke **Read pasted text**.
+3. App columns khud milati hai aur duplicates check karti hai. Jo company pehle se ho, us me data merge ho jata hai.
+
+### 9. Client aur project
+Deal pakki ho jaye to company page par **New project** (ya upar **+ New → Project**). Company khud
+**Won · Client** ban jati hai.
+
+- **Billing:** **One-time build** (poora project) ya **Monthly service** (har mahine ki fees + billing day).
+- **Scope:** kya banana hai (**Deliverable**) aur kya shamil nahi (**Not included**). Kaam hote hi tick karein.
+- **Milestones:** har qist ki raqam aur tareekh. Kaam ho jaye to tick karein.
+- **Payment received / Record payment:** paise aayein to record karein; kis milestone ke hain wo bhi chunein.
+- **Timeline:** start se deadline tak progress aur milestones.
+- **Links** (staging, Figma), **Tasks** aur **Notes** bhi isi page par.
+
+### 10. Monthly services
+Har monthly client ke 12 mahine ka grid: paid, is mahine due, late. Kisi mahine par click karke us mahine ki payment
+record kar dein. Upar MRR (har mahine ki fixed aamdani) dikhti hai.
+
+### 11. Invoices
+1. Project page par **Invoice**, ya **Invoices → New invoice**.
+2. **Add line** se lines daalein, ya **Add milestone** se project ka milestone line ban jata hai. Tax aur discount
+   bhi daal sakte hain.
+3. **Print / PDF** → browser me "Save as PDF" karke client ko bhejein.
+4. Bhejne par **Mark sent**, paise aane par **Mark paid** — payment khud record ho jati hai aur milestone paid ban
+   jata hai.
+
+Due date guzar jaye to invoice laal **Overdue** dikhata hai. Galti ho to **Back to draft** ya **Cancel invoice**.
+
+### 12. Finance aur Tasks
+- **Finance → Overview:** har mahine ki aamdani, pending, MRR, top clients. **Payments:** saari payments ki list.
+- **Tasks → New task:** company ya project se jod sakte hain. Overdue, aaj, aane wale aur done alag dikhte hain.
+
+Har currency ka hisaab alag rehta hai — app EUR ko USD me convert nahi karti.
+
+### Shortcuts
+- **Ctrl + K** — har cheez dhoondein: company, banda, email, project.
+- Upar **+ New** — kahin se bhi company, project, task, payment ya invoice add karein.
+- **Settings → Download all data (JSON)** — poora backup. Mahine me ek dafa le liya karein.
+
+---
+
 ## Run it locally
 
 Requirements: **Node.js 22+** and a MongoDB database.
